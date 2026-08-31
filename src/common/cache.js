@@ -33,8 +33,8 @@ const DURATIONS = {
  */
 const CACHE_TTL = {
   STATS_CARD: {
-    DEFAULT: DURATIONS.ONE_DAY,
-    MIN: DURATIONS.TWELVE_HOURS,
+    DEFAULT: DURATIONS.FIVE_MINUTES,
+    MIN: DURATIONS.ONE_MINUTE,
     MAX: DURATIONS.TWO_DAY,
   },
   TOP_LANGS_CARD: {
@@ -89,7 +89,6 @@ const resolveCacheSeconds = ({ requested, def, min, max }) => {
  * @param {any} res The response object.
  */
 const disableCaching = (res) => {
-  // Disable caching for browsers, shared caches/CDNs, and GitHub Camo.
   res.setHeader(
     "Cache-Control",
     "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0",
@@ -135,7 +134,6 @@ const setErrorCacheHeaders = (res) => {
     return;
   }
 
-  // Use lower cache period for errors.
   res.setHeader(
     "Cache-Control",
     `max-age=${CACHE_TTL.ERROR}, ` +
